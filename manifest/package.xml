@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Enquiry__c</members>
+        <members>Enquiry_Product__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Product2.SKU__c</members>
+        <members>Product2.Family</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Enquiry__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Enquiry__c-Enquiry Layout</members>
+        <members>Enquiry_Product__c-Enquiry Product Interest Layout</members>
+        <members>Product2-Product Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Enquiry_Record_Page</members>
+        <members>SparkNest_Sales_UtilityBar</members>
+        <members>SparkNest_Support_UtilityBar</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>SparkNest_Sales</members>
+        <members>SparkNest_Support</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>SparkNest Sales Rep</members>
+        <members>SparkNest Support Agent</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Senior_Sales_Rep</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>View_Customer_Budget</members>
+        <name>CustomPermission</name>
+    </types>
+    <types>
+        <members>CEO</members>
+        <members>Sales_Manager</members>
+        <members>Support_Manager</members>
+        <members>Sales_Rep_Hyderabad</members>
+        <members>Sales_Rep_Mumbai</members>
+        <members>upport_Agent_Hyderabad</members>
+        <members>Support_Agent_Mumbai</members>
+        <name>Role</name>
+    </types>
+    <types>
+        <members>Support_Agents</members>
+        <name>Group</name>
+    </types>
+    <types>
+        <members>Enquiry__c</members>
+        <name>SharingRules</name>
+    </types>
+    <types>
+        <members>Contact</members>
+        <name>MatchingRules</name>
+    </types>
+    <types>
+        <members>Contact.Block_Duplicate_Contact_Email</members>
+        <name>DuplicateRule</name>
+    </types>
+    <types>
+        <members>EnquiryProductTriggerHandler</members>
+        <members>EnquiryProductHelper</members>
+        <members>EnquiryProductHelperTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>EnquiryProductTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>62.0</version>
+</Package>

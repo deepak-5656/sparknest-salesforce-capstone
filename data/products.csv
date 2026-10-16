@@ -1,0 +1,9 @@
+Name,ProductCode,SKU__c,Family,Description,IsActive
+Spark Phone,PD01,PD01,Personal Devices,5G smartphone with 128GB storage,TRUE
+Spark Watch,PD02,PD02,Personal Devices,Smartwatch with heart rate and step tracking,TRUE
+Smart Speaker,SH01,SH01,Smart Home,Voice controlled speaker for home,TRUE
+Smart Bulb,SH02,SH02,Smart Home,WiFi LED bulb controlled from the app,TRUE
+Earbuds,AC01,AC01,Accessories,Wireless earbuds with charging case,TRUE
+Fast Charger,AC02,AC02,Accessories,65W USB-C fast charger,TRUE
+Care Plan 1 Year,CP01,CP01,Annual Care Plans,One year repair and support plan,TRUE
+Care Plan 2 Year,CP02,CP02,Annual Care Plans,Two year repair and support plan,TRUE
