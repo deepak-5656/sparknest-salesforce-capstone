@@ -1,0 +1,255 @@
+{
+  "auth": {
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "type": "string",
+        "value": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/oauth2/authorize"
+      },
+      {
+        "key": "addTokenTo",
+        "type": "string",
+        "value": "header"
+      },
+      {
+        "key": "accessTokenUrl",
+        "type": "string",
+        "value": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/oauth2/token"
+      }
+    ],
+    "type": "oauth2"
+  },
+  "info": {
+    "_collection_link": "https://go.postman.co/collection/57324997-6cc0ce5f-d125-4565-82f6-20a660d25b92?source=collection_link",
+    "_exporter_id": "57324997",
+    "_postman_id": "6cc0ce5f-d125-4565-82f6-20a660d25b92",
+    "description": "SparkNest website enquiry API tests: 3 REST scenarios (new customer, existing customer, missing email) and Composite API success and rollback.",
+    "name": "SparkNest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "New Customer",
+      "request": {
+        "auth": {
+          "bearer": [
+            {
+              "key": "token",
+              "type": "string",
+              "value": "{{auth_secret_0c0h}}"
+            }
+          ],
+          "type": "bearer"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\r\n    \"firstName\": \"Anjali\",\r\n    \"lastName\": \"Desai\",\r\n    \"email\": \"anjali.desai@gmail.com\",\r\n    \"phone\": \"9876500021\",\r\n    \"subject\": \"Smart Speaker price query\",\r\n    \"enquiryType\": \"Product Enquiry\",\r\n    \"budget\": 15000\r\n}"
+        },
+        "header": [],
+        "method": "POST",
+        "url": {
+          "host": [
+            "orgfarm-f8de67d3f1-dev-ed",
+            "develop",
+            "my",
+            "salesforce",
+            "com"
+          ],
+          "path": [
+            "services",
+            "apexrest",
+            "enquiry"
+          ],
+          "protocol": "https",
+          "raw": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/apexrest/enquiry"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Existing Customer",
+      "request": {
+        "auth": {
+          "bearer": [
+            {
+              "key": "token",
+              "type": "string",
+              "value": "{{auth_secret_0c0h}}"
+            }
+          ],
+          "type": "bearer"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\r\n    \"firstName\": \"Ravi\",\r\n    \"lastName\": \"Kumar\",\r\n    \"email\": \"ravikumar.hyd@gmail.com\",\r\n    \"phone\": \"9876500001\",\r\n    \"subject\": \"Care plan renewal\",\r\n    \"enquiryType\": \"Care Plan Enquiry\",\r\n    \"budget\": 5000\r\n}"
+        },
+        "header": [],
+        "method": "POST",
+        "url": {
+          "host": [
+            "orgfarm-f8de67d3f1-dev-ed",
+            "develop",
+            "my",
+            "salesforce",
+            "com"
+          ],
+          "path": [
+            "services",
+            "apexrest",
+            "enquiry"
+          ],
+          "protocol": "https",
+          "raw": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/apexrest/enquiry"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Missing Email",
+      "request": {
+        "auth": {
+          "bearer": [
+            {
+              "key": "token",
+              "type": "string",
+              "value": "{{auth_secret_0c0h}}"
+            }
+          ],
+          "type": "bearer"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\r\n    \"firstName\": \"Meena\",\r\n    \"lastName\": \"Iyer\",\r\n    \"phone\": \"9876500031\",\r\n    \"subject\": \"Warranty question\",\r\n    \"enquiryType\": \"Product Enquiry\",\r\n    \"budget\": 3000\r\n}"
+        },
+        "header": [],
+        "method": "POST",
+        "url": {
+          "host": [
+            "orgfarm-f8de67d3f1-dev-ed",
+            "develop",
+            "my",
+            "salesforce",
+            "com"
+          ],
+          "path": [
+            "services",
+            "apexrest",
+            "enquiry"
+          ],
+          "protocol": "https",
+          "raw": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/apexrest/enquiry"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Composite - Success",
+      "request": {
+        "auth": {
+          "bearer": [
+            {
+              "key": "token",
+              "type": "string",
+              "value": "{{auth_secret_0c0h}}"
+            }
+          ],
+          "type": "bearer"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\r\n    \"allOrNone\": true,\r\n    \"compositeRequest\": [\r\n        {\r\n            \"method\": \"POST\",\r\n            \"url\": \"/services/data/v62.0/sobjects/Contact\",\r\n            \"referenceId\": \"refContact\",\r\n            \"body\": {\r\n                \"FirstName\": \"Karthik\",\r\n                \"LastName\": \"Reddy\",\r\n                \"Email\": \"karthik.reddy@gmail.com\",\r\n                \"Phone\": \"9876500041\"\r\n            }\r\n        },\r\n        {\r\n            \"method\": \"POST\",\r\n            \"url\": \"/services/data/v62.0/sobjects/Enquiry__c\",\r\n            \"referenceId\": \"refEnquiry\",\r\n            \"body\": {\r\n                \"Name\": \"Laptop bulk order query\",\r\n                \"Contact__c\": \"@{refContact.id}\",\r\n                \"Enquiry_Type__c\": \"Product Enquiry\",\r\n                \"Customer_Budget__c\": 50000\r\n            }\r\n        }\r\n    ]\r\n}"
+        },
+        "header": [],
+        "method": "POST",
+        "url": {
+          "host": [
+            "orgfarm-f8de67d3f1-dev-ed",
+            "develop",
+            "my",
+            "salesforce",
+            "com"
+          ],
+          "path": [
+            "services",
+            "data",
+            "v62.0",
+            "composite"
+          ],
+          "protocol": "https",
+          "raw": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/data/v62.0/composite"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Composite - Rollback",
+      "request": {
+        "auth": {
+          "bearer": [
+            {
+              "key": "token",
+              "type": "string",
+              "value": "{{auth_secret_0c0h}}"
+            }
+          ],
+          "type": "bearer"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\r\n    \"allOrNone\": true,\r\n    \"compositeRequest\": [\r\n        {\r\n            \"method\": \"POST\",\r\n            \"url\": \"/services/data/v62.0/sobjects/Contact\",\r\n            \"referenceId\": \"refContact\",\r\n            \"body\": {\r\n                \"FirstName\": \"Pooja\",\r\n                \"LastName\": \"Nair\",\r\n                \"Email\": \"pooja.nair@gmail.com\",\r\n                \"Phone\": \"9876500051\"\r\n            }\r\n        },\r\n        {\r\n            \"method\": \"POST\",\r\n            \"url\": \"/services/data/v62.0/sobjects/Enquiry__c\",\r\n            \"referenceId\": \"refEnquiry\",\r\n            \"body\": {\r\n                \"Name\": \"Headphones discount query\",\r\n                \"Contact__c\": \"@{refContact.id}\",\r\n                \"Enquiry_Type__c\": \"Product Enquiry\",\r\n                \"Customer_Budget__c\": 500\r\n            }\r\n        }\r\n    ]\r\n}"
+        },
+        "header": [],
+        "method": "POST",
+        "url": {
+          "host": [
+            "orgfarm-f8de67d3f1-dev-ed",
+            "develop",
+            "my",
+            "salesforce",
+            "com"
+          ],
+          "path": [
+            "services",
+            "data",
+            "v62.0",
+            "composite"
+          ],
+          "protocol": "https",
+          "raw": "https://orgfarm-f8de67d3f1-dev-ed.develop.my.salesforce.com/services/data/v62.0/composite"
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "salesforce_access_token_0jvi",
+      "secret": true
+    }
+  ]
+}

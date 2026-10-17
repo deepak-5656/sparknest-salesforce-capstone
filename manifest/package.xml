@@ -59,6 +59,11 @@
         <name>Group</name>
     </types>
     <types>
+        <members>Care_Plan_Support</members>
+        <members>General_Support</members>
+        <name>Queue</name>
+    </types>
+    <types>
         <members>Enquiry__c</members>
         <name>SharingRules</name>
     </types>
@@ -71,13 +76,39 @@
         <name>DuplicateRule</name>
     </types>
     <types>
+        <members>CaseOrigin</members>
+        <name>StandardValueSet</name>
+    </types>
+    <types>
+        <members>Enquiry__c.Convert_to_Case</members>
+        <name>QuickAction</name>
+    </types>
+    <types>
+        <members>Convert_Enquiry_to_Case</members>
+        <members>Auto_close_Follow_up_Tasks</members>
+        <members>Weekly_Enquiry_Summary</members>
+        <name>Flow</name>
+    </types>
+    <types>
         <members>EnquiryProductTriggerHandler</members>
         <members>EnquiryProductHelper</members>
         <members>EnquiryProductHelperTest</members>
+        <members>ITriggerHandler</members>
+        <members>TriggerDispatcher</members>
+        <members>EnquiryTriggerHandler</members>
+        <members>EnquiryService</members>
+        <members>TestDataFactory</members>
+        <members>EnquiryServiceTest</members>
+        <members>CloseStaleEnquiriesBatch</members>
+        <members>CloseStaleEnquiriesScheduler</members>
+        <members>CloseStaleEnquiriesBatchTest</members>
+        <members>SparkNestEnquiryAPI</members>
+        <members>SparkNestEnquiryAPITest</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>EnquiryProductTrigger</members>
+        <members>EnquiryTrigger</members>
         <name>ApexTrigger</name>
     </types>
     <version>62.0</version>
