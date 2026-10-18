@@ -111,5 +111,26 @@
         <members>EnquiryTrigger</members>
         <name>ApexTrigger</name>
     </types>
-    <version>62.0</version>
+        <types>
+        <members>SparkNestReports</members>
+        <members>SparkNestReports/Enquiries_by_Type_NY0</members>
+        <members>SparkNestReports/My_Open_Enquiries_nGN</members>
+        <members>SparkNestReports/Cases_by_Priority_B8f</members>
+        <members>SparkNestReports/Weekly_New_Enquiries_qA1</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>SparkNestDashboards</members>
+        <members>SparkNestDashboards/KiiRAqHrYddQdiIWhGTBBNHnacEZEg</members>
+        <name>Dashboard</name>
+    </types>
+    <types>
+        <members>SparkNest_Support_Agent</members>
+        <name>Bot</name>
+    </types>
+    <types>
+        <members>SparkNest_Support_Agent_2</members>
+        <name>AiAuthoringBundle</name>
+    </types>
+    <version>66.0</version>
 </Package>
