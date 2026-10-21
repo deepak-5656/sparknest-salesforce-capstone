@@ -1,58 +1,91 @@
-# Salesforce DX Project
+# SparkNest – Enquiry Management on Salesforce
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+SparkNest is an enquiry management solution on the Salesforce Platform for a consumer electronics brand. It captures customer enquiries from the website, routes them to the sales and support teams, gives management real-time visibility, and lets customers check their enquiry status through an AI agent.
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+---
 
-## Prerequisites
+## Solution Overview
 
-Before you start, make sure you have:
+```
+Website ──► REST API ──► Contact + Enquiry ──► Automation ──► Sales / Support ──► Dashboard
+                                                                     │
+                                                       Agentforce Support Agent
+```
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+| Layer | Components |
+|-------|------------|
+| **Data Model** | `Enquiry__c`, `Enquiry_Product__c` (many-to-many with Product), Contact, Case |
+| **Security** | Private sharing, role hierarchy, profiles, permission set with custom permission, criteria-based sharing rule |
+| **Automation** | Apex trigger framework, screen / record-triggered / scheduled flows, nightly Batch Apex |
+| **Integration** | Custom REST API for website enquiries, Composite API with transactional rollback |
+| **Analytics** | Enquiry and case reports, dynamic Sales Overview dashboard |
+| **AI** | Agentforce Support Agent with an Enquiry Status Check topic backed by a Flow action |
+
+---
+
+## How It Works
+
+1. **Capture** – The website calls `POST /services/apexrest/enquiry`. The API matches the customer by email, reuses or creates the Contact, and creates the Enquiry.
+2. **Validate & automate** – The trigger framework defaults the status, enforces the minimum budget, creates a follow-up task for the owner and stamps the closed date.
+3. **Work** – Sales reps see only their own enquiries; managers see their team's through the role hierarchy. Care Plan enquiries are shared with support agents.
+4. **Escalate** – A screen flow converts an enquiry into a Case and assigns it to the correct support queue.
+5. **Maintain** – A nightly batch closes stale enquiries; a weekly scheduled flow sends a summary to the sales manager.
+6. **Report** – A dynamic dashboard shows each user the data they are allowed to see.
+7. **Self-service** – Customers ask the Agentforce agent for their enquiry status; the agent only returns that customer's latest enquiry.
+
+---
+
+## Apex Overview
+
+| Class | Responsibility |
+|-------|----------------|
+| `EnquiryTrigger` | Thin trigger; delegates to the dispatcher |
+| `TriggerDispatcher` | Routes each trigger context to the handler |
+| `EnquiryTriggerHandler` | Handler implementation for `Enquiry__c` |
+| `EnquiryService` | Bulk-safe business logic |
+| `SparkNestEnquiryAPI` | REST endpoint for website enquiry submission |
+| `CloseStaleEnquiriesBatch` | Closes inactive enquiries in batches |
+| `CloseStaleEnquiriesScheduler` | Schedules the batch nightly |
+| `TestDataFactory` | Reusable test data for all test classes |
+
+All logic is bulkified and covered by unit tests with assertions, including bulk scenarios.
+
+---
 
 ## Project Structure
 
-Your DX project follows this structure:
+```
+force-app/main/default/
+├── classes/            Apex classes and test classes
+├── triggers/           Object triggers
+├── flows/              Screen, record-triggered, scheduled and agent action flows
+├── objects/            Custom objects and fields
+├── permissionsets/     Permission sets
+├── profiles/           Profiles
+├── reports/            Reports
+├── dashboards/         Dashboards
+└── bots/               Agentforce agent
+manifest/
+└── package.xml         Metadata manifest
+postman/                API collection (REST and Composite)
+```
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+---
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
+## Setup
 
-## Get Started
+```bash
+sf org login web --alias sparknest
+sf project deploy start --manifest manifest/package.xml --target-org sparknest
+sf apex run test --target-org sparknest --test-level RunLocalTests --code-coverage --result-format human
+```
 
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
+---
 
-## Common Salesforce CLI Commands
+## Tech Stack
 
-Here are common CLI commands that you'll use the most:
+Salesforce Platform · Apex · Flow Builder · Lightning App Builder · REST & Composite API · Reports & Dashboards · Agentforce · Salesforce CLI · Git
 
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
+---
 
-## Use Agentforce Vibes to Build Lightning Apps
-
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
-
-## Additional Resources
-
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-
+**Author:** Deepak R
